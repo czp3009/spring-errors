@@ -3,6 +3,22 @@ Provide a series of exception classes inherited from spring ResponseStatusExcept
 
 All 4xx Exception are there.
 
+# Gradle
+```groovy
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    implementation 'com.github.czp3009:spring-errors:0.0.1'
+}
+```
+
+# Runtime Dependency
+```
+org.springframework:spring-web:5.X
+```
+
 # Example
 ```java
 @RestController
