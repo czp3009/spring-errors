@@ -1,0 +1,20 @@
+package com.hiczp.spring.error;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
+public class RequestHeaderFieldsTooLargeException extends ResponseStatusException {
+    private static final HttpStatus status = HttpStatus.REQUEST_HEADER_FIELDS_TOO_LARGE;
+
+    public RequestHeaderFieldsTooLargeException() {
+        super(status);
+    }
+
+    public RequestHeaderFieldsTooLargeException(String message) {
+        super(status, message);
+    }
+
+    public RequestHeaderFieldsTooLargeException(String message, Throwable cause) {
+        super(status, message, cause);
+    }
+}

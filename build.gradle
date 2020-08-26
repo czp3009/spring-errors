@@ -1,0 +1,84 @@
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+group 'com.hiczp.spring'
+version '0.0.1'
+
+compileJava {
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly group: 'org.springframework', name: 'spring-web', version: '5.2.8.RELEASE'
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    archiveClassifier = 'sources'
+}
+
+task javadocJar(type: Jar) {
+    from javadoc
+    archiveClassifier = 'javadoc'
+}
+
+publishing {
+    repositories {
+        maven {
+            url = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+            credentials {
+                username = project.properties.ossUsername
+                password = project.properties.ossPassword
+            }
+        }
+    }
+
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+
+            pom {
+                name = project.name
+                description = project.description
+                url = 'https://github.com/czp3009/spring-errors'
+
+                licenses {
+                    license {
+                        name = 'APACHE LICENSE, VERSION 2.0'
+                        url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'czp3009'
+                        name = 'czp3009'
+                        email = 'czp3009@gmail.com'
+                        url = 'https://www.hiczp.com'
+                    }
+                }
+
+                scm {
+                    connection = 'scm:git:git://github.com/czp3009/spring-errors'
+                    developerConnection = 'scm:git:ssh://github.com/czp3009/spring-errors'
+                    url = 'https://github.com/czp3009/spring-errors'
+                }
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.mavenJava
+}
+
+gradle.taskGraph.whenReady { taskGraph ->
+    tasks.signMavenJavaPublication.onlyIf { taskGraph.hasTask tasks.publish }
+}
