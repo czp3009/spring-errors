@@ -1,7 +1,7 @@
 # Spring Errors
 Provide a series of exception classes inherited from spring ResponseStatusException, such as `BadRequestException`, `NotFoundException`.
 
-All 4xx Exception are there.
+Include all 4xx exceptions.
 
 # Gradle
 ```groovy
@@ -10,13 +10,13 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.czp3009:spring-errors:0.0.1'
+    implementation 'com.github.czp3009:spring-errors:0.0.2'
 }
 ```
 
 # Runtime Dependency
 ```
-org.springframework:spring-web:5.X
+org.springframework:spring-web:6.X
 ```
 
 # Example
